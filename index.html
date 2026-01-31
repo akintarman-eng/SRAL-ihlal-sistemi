@@ -1,26 +1,90 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>SRAL | Giriş</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>SRAL İhlal Takip Sistemi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; max-width: 600px; margin: auto; }
+    h2 { text-align: center; }
+    input, select, button { width: 100%; padding: 10px; margin: 6px 0; font-size: 16px; }
+    .box { border: 1px solid #ccc; padding: 15px; border-radius: 10px; margin-top: 20px; }
+  </style>
 </head>
 <body>
-<div class="card">
-  <img src="logo.png" class="logo">
-  <h2>Sıdıka Rodop Anadolu Lisesi</h2>
-  <p>Öğrenci İhlal Takip Sistemi</p>
-  <input type="email" id="email" placeholder="E-posta">
-  <input type="password" id="password" placeholder="Şifre">
-  <button onclick="login()">Giriş Yap</button>
+
+<h2>📋 SRAL İhlal Takip Sistemi</h2>
+
+<div class="box">
+  <h3>1️⃣ Öğrenci Excel Yükle (Admin)</h3>
+  <input type="file" id="excelInput" accept=".xlsx,.xls">
+  <button onclick="loadExcel()">Excel Yükle</button>
 </div>
-<script src="auth.js"></script>
+
+<div class="box">
+  <h3>2️⃣ İhlal Girişi (Öğretmen)</h3>
+  <input id="number" placeholder="Öğrenci Numarası" oninput="autoFill()" />
+  <input id="name" placeholder="Ad Soyad" disabled />
+  <input id="class" placeholder="Sınıf" disabled />
+  <input id="violation" placeholder="İhlal Türü (Saç, Takı, Kıyafet...)" />
+  <input id="teacher" placeholder="Öğretmen Ad Soyad" />
+  <button onclick="saveViolation()">Kaydet</button>
+</div>
+
+<div class="box">
+  <h3>3️⃣ Kayıtları Gör (İdare)</h3>
+  <button onclick="showRecords()">Listele</button>
+  <pre id="output"></pre>
+</div>
+
 <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+function loadExcel() {
+  const file = document.getElementById('excelInput').files[0];
+  if (!file) return alert("Excel dosyası seçiniz");
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, {type: 'array'});
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const students = XLSX.utils.sheet_to_json(sheet);
+    localStorage.setItem("students", JSON.stringify(students));
+    alert("✅ Öğrenciler başarıyla yüklendi!");
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function autoFill() {
+  const num = document.getElementById("number").value;
+  const students = JSON.parse(localStorage.getItem("students") || "[]");
+  const s = students.find(x => String(x.number) === num);
+  if (s) {
+    document.getElementById("name").value = s.name;
+    document.getElementById("class").value = s.class;
+  }
+}
+
+function saveViolation() {
+  const rec = {
+    number: number.value,
+    name: name.value,
+    class: class.value,
+    violation: violation.value,
+    teacher: teacher.value,
+    date: new Date().toLocaleString("tr-TR")
+  };
+  const data = JSON.parse(localStorage.getItem("violations") || "[]");
+  data.push(rec);
+  localStorage.setItem("violations", JSON.stringify(data));
+  alert("✅ İhlal kaydedildi");
+}
+
+function showRecords() {
+  const data = JSON.parse(localStorage.getItem("violations") || "[]");
+  output.textContent = JSON.stringify(data, null, 2);
 }
 </script>
+
 </body>
 </html>
