@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>SRAL | Giriş</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="card">
+  <img src="logo.png" class="logo">
+  <h2>Sıdıka Rodop Anadolu Lisesi</h2>
+  <p>Öğrenci İhlal Takip Sistemi</p>
+  <input type="email" id="email" placeholder="E-posta">
+  <input type="password" id="password" placeholder="Şifre">
+  <button onclick="login()">Giriş Yap</button>
+</div>
+<script src="auth.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+</body>
+</html>

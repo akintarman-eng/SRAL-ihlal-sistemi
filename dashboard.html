@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>SRAL | Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <img src="logo.png" class="header-logo">
+  <div>
+    <h3>Sıdıka Rodop Anadolu Lisesi</h3>
+    <small id="userInfo"></small>
+  </div>
+  <button onclick="logout()" class="logout">Çıkış</button>
+</header>
+
+<div class="container">
+<section id="teacherPanel">
+<h3>➕ İhlal Kaydı</h3>
+<input id="studentName" placeholder="Öğrenci Ad Soyad">
+<input id="className" placeholder="Sınıf (9/A)">
+<input id="number" placeholder="Numara">
+<select id="violation">
+  <option value="">İhlal Türü Seç</option>
+  <option>Saç-Sakal</option>
+  <option>Kılık-Kıyafet</option>
+  <option>Takı</option>
+  <option>Forma Uygunsuzluğu</option>
+  <option>Davranış</option>
+  <option>Diğer</option>
+</select>
+<input id="lesson" placeholder="Ders / Saat">
+<button onclick="saveViolation()">Kaydet</button>
+</section>
+
+<section id="adminPanel" class="hidden">
+<h3>📊 Yönetici Paneli</h3>
+
+<h4>📥 e-Okul Excel Yükle</h4>
+<input type="file" id="excelFile" accept=".csv" onchange="importStudents(this)">
+
+<input id="searchBox" placeholder="Öğrenci adına göre ara" onkeyup="renderTable()">
+<input type="date" id="startDate" onchange="renderTable()">
+<input type="date" id="endDate" onchange="renderTable()">
+<select id="classFilter" onchange="renderTable()">
+  <option value="">Tüm Sınıflar</option>
+</select>
+
+<div class="stats" id="statsBox"></div>
+
+<canvas id="chartCanvas"></canvas>
+
+<button onclick="exportCSV()">📥 Excel (CSV) İndir</button>
+<button onclick="exportDiscipline()">🧾 Disiplin Dosyası Oluştur</button>
+
+<div id="tableArea"></div>
+</section>
+</div>
+
+<script src="app.js"></script>
+<script src="admin.js"></script>
+<script src="charts.js"></script>
+<script src="export.js"></script>
+<script src="import.js"></script>
+<script src="discipline.js"></script>
+</body>
+</html>

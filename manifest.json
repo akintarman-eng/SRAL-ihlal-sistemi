@@ -1,0 +1,9 @@
+{
+"name":"SRAL Öğrenci İhlal Takip Sistemi",
+"short_name":"SRAL Takip",
+"start_url":"index.html",
+"display":"standalone",
+"background_color":"#ffffff",
+"theme_color":"#003f8a",
+"icons":[{"src":"logo.png","sizes":"192x192","type":"image/png"}]
+}

@@ -1,0 +1,16 @@
+body{margin:0;font-family:Arial;background:#f3f6fb}
+.card{max-width:360px;margin:60px auto;background:#fff;padding:25px;border-radius:14px;text-align:center;box-shadow:0 0 15px rgba(0,0,0,.1)}
+.logo{width:120px;margin-bottom:10px}
+.header-logo{width:50px}
+header{display:flex;align-items:center;gap:10px;background:#003f8a;color:#fff;padding:10px 15px}
+.logout{margin-left:auto;background:#b00020;color:#fff;border:none;padding:8px 12px;border-radius:6px}
+.container{padding:15px;max-width:900px;margin:auto}
+section{background:#fff;padding:15px;border-radius:10px;margin-bottom:20px;box-shadow:0 0 8px rgba(0,0,0,.05)}
+input,select{width:100%;padding:9px;margin:6px 0;border-radius:6px;border:1px solid #ccc}
+button{width:100%;padding:10px;border-radius:6px;border:none;background:#004aad;color:#fff;font-size:15px;margin-top:8px}
+.hidden{display:none}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+th,td{border:1px solid #ccc;padding:6px;text-align:center}
+th{background:#eef2f7}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:10px 0}
+.stat-box{background:#eef3ff;padding:10px;border-radius:8px;text-align:center;font-weight:bold}
